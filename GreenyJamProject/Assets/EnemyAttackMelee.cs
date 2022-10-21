@@ -47,6 +47,7 @@ public class EnemyAttackMelee : MonoBehaviour
         {
             hasAttacked = true;
             Attack();
+            //aaanýl
         }
 
     }

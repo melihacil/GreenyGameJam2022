@@ -67,6 +67,10 @@ public class Player : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("Hit" + enemy.name);
+            if (enemy.CompareTag("breakable"))
+            {
+                enemy.GetComponent<Breakables>().Destroy();
+            }
         }
     }
     private void FixedUpdate()

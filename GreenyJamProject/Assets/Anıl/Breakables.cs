@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Breakables : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Animator anim;
+    public BoxCollider2D bc;
     void Start()
     {
-        
+        bc = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
+    }
+    public void Destroy()
+    {
+        anim.SetBool("smash", true);
+        Destroy(bc);
     }
 }
