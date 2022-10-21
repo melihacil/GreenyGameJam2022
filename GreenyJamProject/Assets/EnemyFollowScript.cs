@@ -69,16 +69,6 @@ public class EnemyFollowScript : MonoBehaviour
     }
 
 
-    public void MoveTo(Vector2 direction)
-    {
-        this.direction = direction;
-    }
-
-    public void Stop()
-    {
-        enemyRb.velocity = Vector2.zero;
-        MoveTo(Vector2.zero);
-    }
 
     private void FixedUpdate()
     {
