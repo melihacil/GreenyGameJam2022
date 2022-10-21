@@ -17,7 +17,7 @@ public class EnemyFollowScript : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
-    [SerializeField] private float movementForce;
+    private float movementForce;
 
 
     public float distanceX { get; private set; }
@@ -72,10 +72,7 @@ public class EnemyFollowScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var desiredVelocity = direction * speed;
-        var deltaVelocity = desiredVelocity - enemyRb.velocity;
-        Vector3 moveForce = deltaVelocity * (force * movementForce * Time.fixedDeltaTime);
-        enemyRb.AddForce(moveForce, ForceMode2D.Force);
+
         //Debug.Log("Added force" + moveForce.magnitude);
     }
 }
