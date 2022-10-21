@@ -5,8 +5,8 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
 
-    public int Width;
-    public int Height;
+    public float Width;
+    public float Height;
     public int X;
     public int Y;
     // Start is called before the first frame update
@@ -33,4 +33,15 @@ public class Room : MonoBehaviour
     {
         return new Vector3( X * Width, Y * Height);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other.tag == "Player")
+        {
+            RoomController.instance.OnPlayerEnterRoom(this);
+        }
+        
+    }
+
 }
