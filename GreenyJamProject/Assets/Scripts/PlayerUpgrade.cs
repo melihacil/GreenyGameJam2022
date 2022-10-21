@@ -5,25 +5,28 @@ using UnityEngine;
 public class PlayerUpgrade : MonoBehaviour
 {
     float fireRate, firePower, speed, hitPoint;
-
+    [SerializeField] GameObject player;
+    PlayerMovement pMovement;
+    
     void Start()
     {
+        pMovement = player.GetComponent<PlayerMovement>();
         
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        Speed(false, 0.1f);
     }
 
     void Speed(bool signal, float value)
     {
         if (signal) 
         {
-            speed += value;
+            pMovement.movementSpeed += value;
         }
-        else speed -= value;
+        else pMovement.movementSpeed -= value;
     }
 
     void HitPoint(bool signal, float value)
