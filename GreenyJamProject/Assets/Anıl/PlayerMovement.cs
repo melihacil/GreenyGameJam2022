@@ -6,17 +6,27 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed = 5f;
     public Rigidbody2D rb;
-    Vector2 movement;
-
+    public Vector2 playerDirection;
     
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+
+
     void Update()
     {
-        movement.x =Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        float directionX = Input.GetAxisRaw("Horizontal");
+        float directionY = Input.GetAxisRaw("Vertical");
+        playerDirection = new Vector2(directionX, directionY).normalized;
+        
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * movementSpeed* Time.fixedDeltaTime);
+        rb.velocity = new Vector2(playerDirection.x*movementSpeed,playerDirection.y * movementSpeed);
+        
     }
 }
