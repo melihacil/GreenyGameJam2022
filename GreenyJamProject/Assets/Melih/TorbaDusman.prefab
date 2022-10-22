@@ -455,6 +455,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currState: 0
-  speed: 0
-  range: 0
-  notInRoom: 0
+  speed: 2
+  range: 50
+  attackRange: 2
+  torbaAttackRadius: 2
+  torbaAttackResetTime: 1
+  attackTime: 1
+  attackFlashTorba: {fileID: 0}

@@ -71,7 +71,7 @@ public class RoomController : MonoBehaviour
                     room.RemoveUnconnectedDoors();
                 }
 
-                // UpdateRooms();
+                UpdateRooms();
               updatedRooms = true;
 
             }
@@ -193,36 +193,36 @@ public class RoomController : MonoBehaviour
         CameraController.instance.currRoom = room;
         currRoom = room;
 
-      //  UpdateRooms();
+        UpdateRooms();
         
     }
 
-    /*
-
+    
     private void UpdateRooms()
     {
        foreach(Room room in loadedRooms)
         {
             if(currRoom != room)
             {
-                EnemyController[] enemies = room.GetComponentInChildren<EnemyController>();
-                if(enemies != null)
+                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
+
+                if (enemies != null)
                 {
                     foreach(EnemyController enemy in enemies)
                     {
-                        enemy.notInRoom = true;
+                        enemy.isInRoom = false;
                         Debug.Log("Not enemy");
                     }
                 }
             }
             else
             {
-                EnemyController[] enemies = room.GetComponentInChildren<EnemyController>();
+                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
                 if (enemies != null)
                 {
                     foreach (EnemyController enemy in enemies)
                     {
-                        enemy.notInRoom = false;
+                        enemy.isInRoom = true;
                         Debug.Log("enemy");
                     }
                 }
@@ -231,7 +231,7 @@ public class RoomController : MonoBehaviour
     }
 
 
-
-    */
+    
+    
 
 }

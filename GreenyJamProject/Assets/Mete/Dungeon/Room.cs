@@ -23,6 +23,9 @@ public class Room : MonoBehaviour
 
     public List<Door> doors = new List<Door> ();
 
+    public EnemyController[] enemyControllers;
+
+
     void Start()
     {
         if(RoomController.instance == null)

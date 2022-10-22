@@ -46,6 +46,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject attackFlashTorba;
     private float maxAtkktime;
 
+    public bool isInRoom = false;
+
     private int EnemyType = 0;
     /*
      * 0 Torba
@@ -69,7 +71,8 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-
+        if (!isInRoom)
+            return;
         switch (currState)
         {
             case (EnemyState.Wander):
@@ -178,7 +181,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("TorbaATTACKfonksiyonu");
         attackTime = maxAtkktime;
-        Instantiate(attackFlashTorba, player.transform.position, Quaternion.identity);
+        //Instantiate(attackFlashTorba, player.transform.position, Quaternion.identity);
         player.GetComponent<Player>().takeDamage(1f);
         Invoke(nameof(ResetAttack), torbaAttackResetTime);
 

@@ -222,6 +222,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currRoom: {fileID: 0}
   moveSpeedWhenRoomChange: 100
+--- !u!1 &783708889 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1993342285776720863, guid: f60eee2d032339844b0edd0cf9a943e1, type: 3}
+  m_PrefabInstance: {fileID: 1549392396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &783708897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783708889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 506c5c1829258b247ac395d29e95054b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &855495362
 GameObject:
   m_ObjectHideFlags: 0
