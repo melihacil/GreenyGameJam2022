@@ -104,6 +104,10 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
+            if (enemy.gameObject.layer == LayerMask.NameToLayer("EnemyLayer"))
+            {
+                enemy.gameObject.GetComponent<EnemyStats>().DamageEnemy();
+            }
             
         }
     }
