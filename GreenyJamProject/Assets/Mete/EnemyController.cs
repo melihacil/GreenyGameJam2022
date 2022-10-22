@@ -186,7 +186,7 @@ public class EnemyController : MonoBehaviour
 
     public void DeathFunction()
     {
-        RoomController.instance.UpdateRooms();
+        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
         transform.localScale -= new Vector3(0.01f, 0.01f, 0);
     }
 

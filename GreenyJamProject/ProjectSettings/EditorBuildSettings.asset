@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Mete/BasementEnd.unity
+    guid: a0eda625cafe01c409d36ac5a0758898
+  - enabled: 1
+    path: Assets/Mete/BasementBasic.unity
+    guid: 81a84acb593e6ef499d4f01dcd83537e
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
@@ -16,13 +22,10 @@ EditorBuildSettings:
     guid: 056f46ae7a659724e8c36776639cfeec
   - enabled: 1
     path: Assets/Mete/BasementEmpty.unity
-    guid: 95f82b4122e858e439c35ebf149e0ce4
-  - enabled: 1
-    path: Assets/Mete/BasementBasic.unity
-    guid: 81a84acb593e6ef499d4f01dcd83537e
-  - enabled: 1
-    path: Assets/Mete/BasementEnd.unity
-    guid: a0eda625cafe01c409d36ac5a0758898
+    guid: f8626bd469b9f064297156f457b222ec
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

@@ -193,11 +193,18 @@ public class RoomController : MonoBehaviour
         CameraController.instance.currRoom = room;
         currRoom = room;
 
-        UpdateRooms();
-        
+        StartCoroutine(RoomCoroutine());
+
     }
 
-    
+    public IEnumerator RoomCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        UpdateRooms();
+
+    }
+
+
     public void UpdateRooms()
     {
        foreach(Room room in loadedRooms)
@@ -223,7 +230,7 @@ public class RoomController : MonoBehaviour
                 {
                     foreach (Door door in room.GetComponentsInChildren<Door>())
                     {
-                        door.doorCollider.SetActive(false);
+                        door.doorCollider.SetActive(true);
                     }
                 }
             }
@@ -246,7 +253,7 @@ public class RoomController : MonoBehaviour
                 {
                     foreach (Door door in room.GetComponentsInChildren<Door>())
                     {
-                        door.doorCollider.SetActive(true);
+                        door.doorCollider.SetActive(false);
                     }
                 }
             }
