@@ -47,7 +47,7 @@ public class EnemyAttackMelee : MonoBehaviour
         {
             hasAttacked = true;
             Attack();
-            //aaanýl
+            EnemyFollowScript.instance.Stop();
         }
 
     }
@@ -66,6 +66,7 @@ public class EnemyAttackMelee : MonoBehaviour
     private void ResetAttack()
     {
         hasAttacked = false;
+        EnemyFollowScript.instance.ResetStop();
     }
 
 

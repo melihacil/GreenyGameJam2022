@@ -11,9 +11,15 @@ public class Player : MonoBehaviour
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
 
+
+    public static Player instance;
+
+
+
     void Start()
     {
      rb = GetComponent<Rigidbody2D>();
+        instance = this;
     }
 
     void Update()

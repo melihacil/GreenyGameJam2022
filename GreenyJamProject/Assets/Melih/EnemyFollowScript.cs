@@ -28,7 +28,7 @@ public class EnemyFollowScript : MonoBehaviour
 
     public float speed = 2f;
     public float force = 2f;
-
+    private bool stop = false;
     private Vector2 direction;
 
 
@@ -50,26 +50,32 @@ public class EnemyFollowScript : MonoBehaviour
     void Update()
     {
         publicPlayerTransform = playerTransform;
-        //distance = Mathf.Atan2((playerTransform.position.x - transform.position.x), (playerTransform.position.y - transform.position.y));
         distanceX = playerTransform.position.x - transform.position.x;
         distanceY = playerTransform.position.y - transform.position.y;
-        //Debug.Log(distance);
         //STOP COLUMN
         distanceMagnitude = (playerTransform.position - transform.position).magnitude;
         if (Mathf.Abs(distanceMagnitude) <= stopRange)
         {
-            //Stop();
+            Stop();
         }
         //MOVE TOWARDS PLAYER
-        else
+        else if (!stop)
         {
             transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, moveSpeed * Time.deltaTime);
         }
 
     }
 
+    public void Stop()
+    {
+        stop = true;
+        transform.position = transform.position;
+    }
 
-
+    public void ResetStop()
+    {
+        stop = false;
+    }
     private void FixedUpdate()
     {
 
