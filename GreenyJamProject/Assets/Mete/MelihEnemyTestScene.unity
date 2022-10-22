@@ -131,52 +131,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: range
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: attackTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: attackRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
       propertyPath: attackFlashTorba
       value: 
       objectReference: {fileID: 1399797637}
-    - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: torbaAttackRadius
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: torbaAttackResetTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8987270539902434146, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8987270539902434146, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: attackRadius
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8987270539902434146, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: playerLayerMask.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 8987270539902434152, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
       propertyPath: m_Name
       value: TorbaDusman
-      objectReference: {fileID: 0}
-    - target: {fileID: 8987270539902434152, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
-      propertyPath: m_TagString
-      value: enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8987270539902434158, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
       propertyPath: m_RootOrder
@@ -222,8 +182,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8987270539902434146, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
 --- !u!1001 &666726332
 PrefabInstance:
