@@ -40,10 +40,10 @@ public class EnemyStats : MonoBehaviour
         visualCount--;
         if (isDead) 
             return;
-        healthVisuals[visualCount].SetActive(false);
+        healthVisuals[health].SetActive(false);
         health--;
-        if (health > 0)
-            healthVisuals[visualCount].SetActive(true);
+        if (health >= 0)
+            healthVisuals[health].SetActive(true);
         if (health == 0)
             isDead = true;
         Debug.Log(isDead);
