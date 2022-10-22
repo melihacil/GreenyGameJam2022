@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - breakable
   layers:
   - Default
   - TransparentFX
@@ -12,6 +13,7 @@ TagManager:
   - Water
   - UI
   - EnemyLayer
+  - Traps
   - 
   - EnemyProjectile
   - TrashcanMoving
@@ -34,10 +36,12 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - TEMP_Player
   - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Door
+    uniqueID: 1312685487
     locked: 0
