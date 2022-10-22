@@ -8,8 +8,15 @@ public enum EnemyState
 
     Follow,
 
-    Die
+    Die,
+
+    Torba,
+
+    TorbaAttack
 };
+//STOP EKLENECEK
+
+
 
 public class EnemyController : MonoBehaviour
 {
@@ -22,17 +29,40 @@ public class EnemyController : MonoBehaviour
 
     public float range;
 
+    public float attackRange;
+
     private bool chooseDir = false;
 
     private bool dead = false;
 
+    private bool interrupted = false;
+
+    private bool hasAttacked = false;
+
+    [SerializeField] private float torbaAttackRadius;
+    [SerializeField] private float torbaAttackResetTime;
+    [SerializeField] private float attackTime;
+    private float maxAtkktime;
+
+    private int EnemyType = 0;
+    /*
+     * 0 Torba
+     * 1 Kuþ
+     * 2 Bidon
+     */
     private Vector3 randomDir;
+
+    private LayerMask playerLayerMask;
+
 
     void Start()
     {
 
         player = GameObject.FindGameObjectWithTag("Player");
-        
+
+        playerLayerMask = LayerMask.NameToLayer("PlayerLayer");
+        Debug.Log(playerLayerMask.value);
+        maxAtkktime = attackTime;
     }
 
     void Update()
@@ -48,6 +78,10 @@ public class EnemyController : MonoBehaviour
                 break;
             case (EnemyState.Die):             
                 break;
+            case (EnemyState.Torba):
+                EnemyType = 0;
+                currState = EnemyState.Wander;
+                break;
         }
 
         if(IsPlayerInRange(range) && currState != EnemyState.Die)
@@ -58,9 +92,7 @@ public class EnemyController : MonoBehaviour
         {
             currState=EnemyState.Wander;
         }
-
-
-        
+  
     }
 
     private bool IsPlayerInRange(float range)
@@ -69,14 +101,19 @@ public class EnemyController : MonoBehaviour
     }
 
 
+    private bool IsPlayerInAttackRange(float attackRange)
+    {
+        return Vector3.Distance(transform.position, player.transform.position) >= attackRange;
+    }
+
     //Rotation
     private IEnumerator ChooseDirection()
     {
         chooseDir = true;
         yield return new WaitForSeconds(Random.Range(2f, 8f));
         randomDir = new Vector3(0, 0, Random.Range(0, 360));
-        Quaternion nextRotation = Quaternion.Euler(randomDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
+        //Quaternion nextRotation = Quaternion.Euler(randomDir);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
         chooseDir = false;
 
     }
@@ -100,9 +137,70 @@ public class EnemyController : MonoBehaviour
 
     void Follow()
     {
+        //Debug.Log((transform.position - player.transform.position).magnitude);
+        if ((transform.position - player.transform.position).magnitude <= attackRange)
+        {
+            if (interrupted)
+                attackTime = maxAtkktime;
+            if (!hasAttacked && attackTime < 0)
+            {
+                hasAttacked = true;
+                TorbaAttack();
+            }
+            else
+                attackTime -= Time.deltaTime;
+            return;
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
 
-    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+    }
 
+
+
+
+ 
+
+    private IEnumerator Attack()
+    {
+        //Debug.Log(playerLayerMask);
+        yield return new WaitForSeconds(2f);
+        TorbaAttack(); 
+   
+    }
+
+
+
+    private void TorbaAttack()
+    {
+        Debug.Log("TorbaATTACKfonksiyonu");
+        attackTime = maxAtkktime;
+        player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 deneme = new Vector3(1, 1,0);
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position + deneme, 15f, playerLayerMask.value);
+        if (collisions != null)
+        {
+            foreach (Collider2D collision in collisions)
+            {
+                //Debug.Log("Attacking");
+                Debug.Log(collision.gameObject.name);
+            }
+            //collision.gameObject.GetComponentInParent<PlayerStats>().DamagePlayer(20);
+        }
+        else
+            Debug.Log("null");
+        Invoke(nameof(ResetAttack), torbaAttackResetTime);
+    }
+
+    private void ResetAttack()
+    {
+        hasAttacked = false;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, torbaAttackRadius);
     }
 
 

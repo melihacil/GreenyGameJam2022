@@ -14,9 +14,9 @@ TagManager:
   - UI
   - EnemyLayer
   - Traps
+  - PlayerLayer
   - 
-  - 
-  - 
+  - TrashcanMoving
   - 
   - 
   - 
