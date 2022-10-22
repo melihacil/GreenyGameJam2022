@@ -12,6 +12,7 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private float resetAttackTime;
     [SerializeField] private Transform attackPos;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private Transform[] nests;
     private float currentTime = 0.2f;
     private bool hasChosenRandomPos = false;
     private bool hasAttacked = false;
@@ -35,6 +36,7 @@ public class FlyingEnemy : MonoBehaviour
             randomX = transform.position.x;
             randomY = transform.position.y;
         }
+        //Movement
         if (!hasChosenRandomPos)
         {
             randomX = Random.Range(randomPos_1.position.x, randomPos_2.position.x);

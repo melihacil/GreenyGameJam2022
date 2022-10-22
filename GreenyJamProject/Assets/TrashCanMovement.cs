@@ -10,9 +10,9 @@ public class TrashCanMovement : MonoBehaviour
 
     
     [SerializeField] private Transform[] canNests;
-
+    [SerializeField] private float moveSpeed;
     private Transform canNextNest;
-    private bool movingToNest = true;
+    private bool movingToNest = false;
     private Transform playerTransform;
 
     void Start()
@@ -23,26 +23,44 @@ public class TrashCanMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerTransform.position = Player.instance.gameObject.transform.position;
-        float distance = 0f; 
-        //Choosing next next that has the max distance from the player
-        foreach (Transform t in canNests)
+        if (!movingToNest)
         {
-            float a = (t.position - playerTransform.position).magnitude;
-            if (a > distance)
+            playerTransform.position = Player.instance.gameObject.transform.position;
+            float distance = 0f;
+            //Choosing next nest that has the max distance from the player
+            foreach (Transform t in canNests)
             {
-                distance = a;
-                canNextNest = t;
+                float a = (t.position - playerTransform.position).magnitude;
+                if (a > distance)
+                {
+                    distance = a;
+                    canNextNest = t;
+                }
             }
-        }
 
-        Debug.Log(canNextNest.gameObject.name);
-        MoveToNextNest();
+            Debug.Log(canNextNest.gameObject.name);
+            MoveToNextNest();
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("EnemyLayer");
+        }
     }
 
     void MoveToNextNest()
     {
+        if (transform.position == canNextNest.position) 
+            movingToNest = true;
+
+        gameObject.layer = LayerMask.NameToLayer("TrashcanMoving");
+        transform.position = Vector3.MoveTowards(transform.position, canNextNest.position, moveSpeed * Time.deltaTime);
         //addforce ya da movetowards yada transform move pos 
 
+    }
+
+    //HASAR ALDIKTAN SONRA RESETLENECEK
+    private void ResetMovingNest()
+    {
+        movingToNest = false;
     }
 }

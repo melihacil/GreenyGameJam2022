@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
+            
         }
     }
     void death()
