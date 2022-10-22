@@ -61,6 +61,7 @@ public class EnemyFollowScript : MonoBehaviour
         //MOVE TOWARDS PLAYER
         else if (!stop)
         {
+
             transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, moveSpeed * Time.deltaTime);
         }
 

@@ -45,7 +45,7 @@ public class TrashCanMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Changing Layer");
+            //Debug.Log("Changing Layer");
             gameObject.layer = LayerMask.NameToLayer("EnemyLayer");
         }
         MoveToNextNest();
