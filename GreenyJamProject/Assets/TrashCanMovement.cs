@@ -13,6 +13,7 @@ public class TrashCanMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     private Transform canNextNest;
     private bool movingToNest = false;
+    private bool hasNotChosen = true;
     private Transform playerTransform;
 
     void Start()
@@ -23,8 +24,9 @@ public class TrashCanMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!movingToNest)
+        if (!movingToNest && hasNotChosen)
         {
+            //Debug.Log("Moving To next")
             playerTransform.position = Player.instance.gameObject.transform.position;
             float distance = 0f;
             //Choosing next nest that has the max distance from the player
@@ -37,23 +39,27 @@ public class TrashCanMovement : MonoBehaviour
                     canNextNest = t;
                 }
             }
-
-            Debug.Log(canNextNest.gameObject.name);
-            MoveToNextNest();
+            hasNotChosen = false;
+            Debug.Log("Moving to next nest = " + canNextNest.gameObject.name);
+            
         }
         else
         {
+            Debug.Log("Changing Layer");
             gameObject.layer = LayerMask.NameToLayer("EnemyLayer");
         }
+        MoveToNextNest();
     }
 
     void MoveToNextNest()
     {
-        if (transform.position == canNextNest.position) 
+        if (transform.position == canNextNest.position)
             movingToNest = true;
-
-        gameObject.layer = LayerMask.NameToLayer("TrashcanMoving");
-        transform.position = Vector3.MoveTowards(transform.position, canNextNest.position, moveSpeed * Time.deltaTime);
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("TrashcanMoving");
+            transform.position = Vector3.MoveTowards(transform.position, canNextNest.position, moveSpeed * Time.deltaTime);
+        } 
         //addforce ya da movetowards yada transform move pos 
 
     }
@@ -62,5 +68,9 @@ public class TrashCanMovement : MonoBehaviour
     private void ResetMovingNest()
     {
         movingToNest = false;
+        hasNotChosen = false;
     }
+
+
+
 }

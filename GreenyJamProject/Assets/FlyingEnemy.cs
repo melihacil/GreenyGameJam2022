@@ -12,7 +12,6 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private float resetAttackTime;
     [SerializeField] private Transform attackPos;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private Transform[] nests;
     private float currentTime = 0.2f;
     private bool hasChosenRandomPos = false;
     private bool hasAttacked = false;
