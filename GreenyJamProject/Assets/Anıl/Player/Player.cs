@@ -21,9 +21,15 @@ public class Player : MonoBehaviour
     public int numberOfFlashes;
     private SpriteRenderer spriteRend;
 
+
+    public static Player instance;
+
+
+
     void Start()
     {
      rb = GetComponent<Rigidbody2D>();
+        instance = this;
     }
     private void Awake()
     {
