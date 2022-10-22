@@ -295,12 +295,13 @@ GameObject:
   - component: {fileID: 8987270539902434159}
   - component: {fileID: 8987270539902434156}
   - component: {fileID: 8987270539902434147}
+  - component: {fileID: 8987270539902434146}
   - component: {fileID: 5088374187194624226}
   - component: {fileID: 5088374187194624225}
   - component: {fileID: 8148710301605494313}
   m_Layer: 6
   m_Name: TorbaDusman
-  m_TagString: enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -423,6 +424,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13358545, y: 0.16164756}
   m_EdgeRadius: 0
+--- !u!114 &8987270539902434146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987270539902434152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091e640a191f43041a022b3cd8ab596a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPos: {fileID: 8987270538703473747}
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 1073741824
+  attackRadius: 1
+  attackResetTime: 1
 --- !u!95 &5088374187194624226
 Animator:
   serializedVersion: 4
@@ -473,11 +492,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currState: 0
-  speed: 2
+  speed: 10
   range: 50
-  attackRange: 2
-  notInRoom: 0
-  torbaAttackRadius: 2
-  torbaAttackResetTime: 2
-  attackTime: 1
-  attackFlashTorba: {fileID: 0}
