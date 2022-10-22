@@ -42,8 +42,14 @@ public class GridController : MonoBehaviour
                 go.GetComponent<Transform>().position = new Vector2(x - (grid.columns - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));
                 go.name = "X: " + x + ", Y: " + y;
                 availablePoints.Add(go.transform.position);
+                go.SetActive(false);
             }
+
+
         }
+
+
+        GetComponentInParent<ObjectRoomSpawner>().InitialiseObjectSpawning();
 
 
     }

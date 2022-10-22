@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mete/BasementEnd.unity
     guid: 81b2c1a5dc6cbf54b95d6cb321afe4a3
+  - enabled: 1
+    path: Assets/Mete/BasementBasic.unity
+    guid: 121d03feb1089014e8135d9496fe8e9d
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

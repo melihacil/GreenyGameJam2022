@@ -348,9 +348,18 @@ MonoBehaviour:
   playerDirection: {x: 0, y: 0}
   attackPoint: {fileID: 1634564125}
   attackRange: 0.5
+  attackDamage: 0.5
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
+  maxHealth: 10
+  health: 10
+  attackSpeed: 2
+  invincibilityCooldown: 0
+  nextAttackTime: 0
+  nextInvincibilityTime: 0
+  iFrameDuration: 0
+  numberOfFlashes: 0
 --- !u!61 &339893886
 BoxCollider2D:
   m_ObjectHideFlags: 0
