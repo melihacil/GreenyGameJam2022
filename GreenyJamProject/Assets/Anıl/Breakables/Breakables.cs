@@ -19,7 +19,16 @@ public class Breakables : MonoBehaviour
     }
     public void Destroy()
     {
-        anim.SetBool("smash", true);
+        
+        StartCoroutine(Wait(0.1f));
+        
         Destroy(bc);
+    }
+    private IEnumerator Wait (float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        anim.SetBool("smash", true);
+
+
     }
 }
