@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUpgrade : MonoBehaviour
+/*public class PlayerUpgrade : MonoBehaviour
 {
     float fireRate, firePower, speed, hitPoint;
     [SerializeField] GameObject player;
@@ -39,4 +39,4 @@ public class PlayerUpgrade : MonoBehaviour
     }
 
     
-}
+} */
