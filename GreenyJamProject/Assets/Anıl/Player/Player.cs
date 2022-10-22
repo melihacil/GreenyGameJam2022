@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public float dashingPower = 100f;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
+    public Vector2 idlePoint;
 
 
 
@@ -52,8 +53,6 @@ public class Player : MonoBehaviour
         float directionY = Input.GetAxisRaw("Vertical");
         anim.SetFloat("Horizontal", directionX);
         anim.SetFloat("Vertical", directionY);
-        
-        //anim.SetFloat("Vertical", directionY);
         playerDirection = new Vector2(directionX, directionY).normalized;
         if (isDashing)
         {
@@ -64,6 +63,9 @@ public class Player : MonoBehaviour
             anim.SetFloat("Speed", 1);
             if (directionX < 0)
             {
+                anim.SetFloat("Horizontal", directionX);
+                anim.SetFloat("lastVertical", 0);
+                anim.SetFloat("lastHorizontal", -1);
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(-1,0,0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add,Quaternion.identity);
@@ -73,7 +75,9 @@ public class Player : MonoBehaviour
             
             if (directionX > 0)
             {
-             
+                anim.SetFloat("Horizontal", directionX);
+                anim.SetFloat("lastVertical", 0);
+                anim.SetFloat("lastHorizontal", 1);
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(+1, 0, 0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add, Quaternion.identity);
@@ -86,6 +90,9 @@ public class Player : MonoBehaviour
             anim.SetFloat("Speed", 1);
             if (directionY < 0)
             {
+                anim.SetFloat("Vertical", directionY);
+                anim.SetFloat("lastHorizontal", 0);
+                anim.SetFloat("lastVertical", -1);
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(0, -1, 0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add, Quaternion.identity);
@@ -93,6 +100,9 @@ public class Player : MonoBehaviour
             }
             if (directionY > 0)
             {
+                anim.SetFloat("Vertical", directionY);
+                anim.SetFloat("lastHorizontal", 0);
+                anim.SetFloat("lastVertical", 1);
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(0, 1, 0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add, Quaternion.identity);
@@ -108,11 +118,13 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.SetBool("isAttacking", true);
+                stopMovement();
                 Attack();
-                nextAttackTime = Time.time + 1f / attackSpeed;
-                StartCoroutine(Wait(0.5f));
-                         
-
+                nextAttackTime = Time.time + 1f / attackSpeed;                
+                StartCoroutine(Wait(0.1f));
+                anim.SetFloat("Horizontal", 0);
+                anim.SetFloat("Vertical", 0);
+                
             }
             
         }
@@ -131,10 +143,23 @@ public class Player : MonoBehaviour
         }
 
     }
+    private void stopMovement()
+    {
+        float temp;
+        temp = movementSpeed;
+        movementSpeed = 0f;
+        StartCoroutine(Waitt(0.8f));
+        
+    }
     private IEnumerator Wait(float second)
     {
         yield return new WaitForSeconds(second);
         anim.SetBool("isAttacking", false);
+    }
+    private IEnumerator Waitt(float second)
+    {
+        yield return new WaitForSeconds(second);
+        movementSpeed = 5f;
     }
     private IEnumerator Dash()
     {
@@ -154,7 +179,7 @@ public class Player : MonoBehaviour
     }
 
 
-    private IEnumerator Attack()
+    private void Attack()
     {
         
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -166,10 +191,7 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
-            if (enemy.CompareTag("enemy")) {
-                Debug.Log("attacking monster");
-            }
-            yield return new WaitForSeconds(0.5f);
+            
            
         }
         
