@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
       propertyPath: attackRange
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8148710301605494313, guid: 360543e147b9e66449c47c7dc8a6c3fc, type: 3}
       propertyPath: attackFlashTorba
