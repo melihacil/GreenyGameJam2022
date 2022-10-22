@@ -5,15 +5,19 @@ TagManager:
   serializedVersion: 2
   tags:
   - breakable
+  - enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - EnemyLayer
   - Traps
+  - PlayerLayer
+  - 
+  - TrashcanMoving
   - 
   - 
   - 
@@ -23,10 +27,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - gecit
   - 
   - 
   - 
@@ -42,6 +43,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Wall
+    uniqueID: 139479531
+    locked: 0
   - name: Door
     uniqueID: 1312685487
+    locked: 0
+  - name: Player
+    uniqueID: 495593425
+    locked: 0
+  - name: Enemy
+    uniqueID: 2467156865
+    locked: 0
+  - name: Wall_Bottom
+    uniqueID: 2314775389
     locked: 0

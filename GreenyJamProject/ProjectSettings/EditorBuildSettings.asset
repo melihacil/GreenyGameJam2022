@@ -5,13 +5,46 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Mete/BasementStart.unity
-    guid: 48d826a00cbede8498d04325f06aa33b
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Mete/BasementMain 1.unity
     guid: 8f37d3a242d392d4b92f83cd25428b8f
   - enabled: 1
+    path: Assets/Mete/BasementStart.unity
+    guid: 056f46ae7a659724e8c36776639cfeec
+  - enabled: 1
     path: Assets/Mete/BasementEmpty.unity
-    guid: 98d37b2ce48b6ee4cb30caa235ada100
+    guid: 95f82b4122e858e439c35ebf149e0ce4
+  - enabled: 1
+    path: Assets/Mete/BasementBasic.unity
+    guid: 81a84acb593e6ef499d4f01dcd83537e
+  - enabled: 1
+    path: Assets/Mete/BasementEnd.unity
+    guid: a0eda625cafe01c409d36ac5a0758898
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
