@@ -20,8 +20,16 @@ public class Player : MonoBehaviour
     public float iFrameDuration;
     public int numberOfFlashes;
     private SpriteRenderer spriteRend;
+    public Animator anim;
+    private bool canDash = true;
+    private bool isDashing;
+    public float dashingPower = 100f;
+    public float dashingTime = 0.2f;
+    public float dashingCooldown = 1f;
 
 
+
+    [SerializeField] private TrailRenderer tr;
     public static Player instance;
 
 
@@ -29,56 +37,84 @@ public class Player : MonoBehaviour
     void Start()
     {
      rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        spriteRend = GetComponent<SpriteRenderer>();
         instance = this;
     }
     private void Awake()
     {
-        spriteRend = GetComponent<SpriteRenderer>();
+        
     }
 
     void Update()
     {
         float directionX = Input.GetAxisRaw("Horizontal");
         float directionY = Input.GetAxisRaw("Vertical");
-         
+        anim.SetFloat("Horizontal", directionX);
+        anim.SetFloat("Vertical", directionY);
+        
+        //anim.SetFloat("Vertical", directionY);
         playerDirection = new Vector2(directionX, directionY).normalized;
+        if (isDashing)
+        {
+            return;
+        }
         if (directionX != 0)
         {
+            anim.SetFloat("Speed", 1);
             if (directionX < 0)
             {
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(-1,0,0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add,Quaternion.identity);
+                spriteRend.flipX = true;
+                
             }
+            
             if (directionX > 0)
             {
+             
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(+1, 0, 0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add, Quaternion.identity);
+                spriteRend.flipX = false;
+                
             }
         }
         if(directionY != 0)
         {
+            anim.SetFloat("Speed", 1);
             if (directionY < 0)
             {
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(0, -1, 0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add, Quaternion.identity);
+                
             }
             if (directionY > 0)
             {
                 Vector3 center = rb.position;
                 Vector3 add = new Vector3(0, 1, 0);
                 attackPoint.transform.SetPositionAndRotation(transform.position + add, Quaternion.identity);
+                
             }
             
+        }
+        if(directionX == 0 && directionY == 0)
+        {
+            anim.SetFloat("Speed", 0);
         }
         if (Time.time >= nextAttackTime) {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                anim.SetBool("isAttacking", true);
                 Attack();
                 nextAttackTime = Time.time + 1f / attackSpeed;
+                StartCoroutine(Wait(0.5f));
+                         
+
             }
+            
         }
         if (Time.time >= nextInvincibilityTime)
         {
@@ -89,12 +125,38 @@ public class Player : MonoBehaviour
                 nextInvincibilityTime = Time.time + 1f / invincibilityCooldown;
             }
         }
+        if (Input.GetKeyDown(KeyCode.LeftControl) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+
+    }
+    private IEnumerator Wait(float second)
+    {
+        yield return new WaitForSeconds(second);
+        anim.SetBool("isAttacking", false);
+    }
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        tr.emitting = true;
+        float temp;
+        temp = movementSpeed;
+        movementSpeed = 10f;
+        yield return new WaitForSeconds(dashingTime);
+        tr.emitting = false;
+        isDashing = false;
+        movementSpeed = temp;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+        
     }
 
 
-    void Attack()
+    private IEnumerator Attack()
     {
-        //animasyon gelecek
+        
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         foreach (Collider2D enemy in hitEnemies)
@@ -104,12 +166,10 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
-            if (enemy.gameObject.layer == LayerMask.NameToLayer("EnemyLayer"))
-            {
-                enemy.gameObject.GetComponent<EnemyStats>().DamageEnemy();
-            }
-            
+            yield return new WaitForSeconds(0.5f);
+           
         }
+        
     }
     void death()
     {
@@ -146,7 +206,10 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(playerDirection.x * movementSpeed, playerDirection.y * movementSpeed);
-
+        if (isDashing)
+        {
+            return;
+        }
     }
     private void OnDrawGizmosSelected()
     {
