@@ -193,7 +193,10 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
-            
+            if (enemy.CompareTag("enemy"))
+            {
+                enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
+            }
            
         }
         

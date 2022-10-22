@@ -39,7 +39,7 @@ public class EnemyController : MonoBehaviour
     private bool interrupted = false;
 
     private bool hasAttacked = false;
-
+    
     [SerializeField] private float torbaAttackRadius;
     [SerializeField] private float torbaAttackResetTime;
     [SerializeField] private float attackTime;
@@ -59,6 +59,16 @@ public class EnemyController : MonoBehaviour
     private LayerMask playerLayerMask;
 
 
+    //Health Stuff
+
+
+    [SerializeField] private int health;
+    private int visualCount;
+    private bool isDead = false;
+    [SerializeField] private GameObject[] healthVisuals;
+
+
+
     void Start()
     {
 
@@ -67,12 +77,27 @@ public class EnemyController : MonoBehaviour
         playerLayerMask = LayerMask.NameToLayer("PlayerLayer");
         Debug.Log(playerLayerMask.value);
         maxAtkktime = attackTime;
+
+        health = healthVisuals.Length - 1;
+        visualCount = healthVisuals.Length;
+        foreach (var healthVisual in healthVisuals)
+        {
+            healthVisual.SetActive(false);
+        }
+        healthVisuals[healthVisuals.Length - 1].SetActive(true);
+
+
     }
 
     void Update()
     {
         if (!isInRoom)
             return;
+        if (isDead)
+        {
+            DeathFunction();
+            return;
+        }
         switch (currState)
         {
             case (EnemyState.Wander):
@@ -138,6 +163,30 @@ public class EnemyController : MonoBehaviour
         }
 
 
+    }
+
+    public void DamageEnemy()
+    {
+        visualCount--;
+        if (isDead)
+            return;
+        healthVisuals[health].SetActive(false);
+        health--;
+        if (health >= 0)
+            healthVisuals[health].SetActive(true);
+        if (health == 0)
+        {
+            isDead = true;
+            gameObject.SetActive(false);
+            GetComponent<Animator>().SetTrigger("Death");
+        }
+        Debug.Log(isDead);
+    }
+
+    public void DeathFunction()
+    {
+        RoomController.instance.UpdateRooms();
+        transform.localScale -= new Vector3(0.01f, 0.01f, 0);
     }
 
     void Follow()

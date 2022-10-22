@@ -198,7 +198,7 @@ public class RoomController : MonoBehaviour
     }
 
     
-    private void UpdateRooms()
+    public void UpdateRooms()
     {
        foreach(Room room in loadedRooms)
         {
