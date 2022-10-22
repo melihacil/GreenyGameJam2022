@@ -180,21 +180,6 @@ public class EnemyController : MonoBehaviour
         attackTime = maxAtkktime;
         Instantiate(attackFlashTorba, player.transform.position, Quaternion.identity);
         player.GetComponent<Player>().takeDamage(1f);
-        /*
-        Vector3 deneme = new Vector3(1, 1,0);
-        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position + deneme, 15f, playerLayerMask.value);
-        if (collisions != null)
-        {
-            foreach (Collider2D collision in collisions)
-            {
-                //Debug.Log("Attacking");
-                Debug.Log(collision.gameObject.name);
-            }
-            //collision.gameObject.GetComponentInParent<PlayerStats>().DamagePlayer(20);
-        }
-        else
-            Debug.Log("null");
-        */
         Invoke(nameof(ResetAttack), torbaAttackResetTime);
 
     }
