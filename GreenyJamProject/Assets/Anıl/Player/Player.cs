@@ -166,6 +166,9 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
+            if (enemy.CompareTag("enemy")) {
+                Debug.Log("attacking monster");
+            }
             yield return new WaitForSeconds(0.5f);
            
         }

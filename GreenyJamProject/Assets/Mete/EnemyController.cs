@@ -21,6 +21,7 @@ public enum EnemyState
 public class EnemyController : MonoBehaviour
 {
 
+
     GameObject player; 
 
     public EnemyState currState = EnemyState.Wander;
@@ -42,6 +43,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float torbaAttackRadius;
     [SerializeField] private float torbaAttackResetTime;
     [SerializeField] private float attackTime;
+    [SerializeField] private GameObject attackFlashTorba;
     private float maxAtkktime;
 
     private int EnemyType = 0;
@@ -171,13 +173,14 @@ public class EnemyController : MonoBehaviour
    
     }
 
-
-
+    //Torba dusmaninin saldiriyor
     private void TorbaAttack()
     {
         Debug.Log("TorbaATTACKfonksiyonu");
         attackTime = maxAtkktime;
-        player = GameObject.FindGameObjectWithTag("Player");
+        Instantiate(attackFlashTorba, player.transform.position, Quaternion.identity);
+        player.GetComponent<Player>().takeDamage(1f);
+        /*
         Vector3 deneme = new Vector3(1, 1,0);
         Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position + deneme, 15f, playerLayerMask.value);
         if (collisions != null)
@@ -191,7 +194,9 @@ public class EnemyController : MonoBehaviour
         }
         else
             Debug.Log("null");
+        */
         Invoke(nameof(ResetAttack), torbaAttackResetTime);
+
     }
 
     private void ResetAttack()
