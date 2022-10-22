@@ -5,8 +5,8 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
 
-    public float Width;
-    public float Height;
+    public int Width;
+    public int Height;
     public int X;
     public int Y;
     private bool updatedDoors;

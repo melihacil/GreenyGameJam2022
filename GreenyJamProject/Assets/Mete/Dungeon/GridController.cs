@@ -24,15 +24,15 @@ public class GridController : MonoBehaviour
      void Awake()
     {
         room = GetComponentInParent<Room>();
-        grid.columns = (int)(room.Width - 2);
-        grid.rows = (int)(room.Height - 2);
+        grid.columns = room.Width - 2;
+        grid.rows = room.Height - 2;
         GenerateGrid();
     }
 
     public void GenerateGrid()
     {
-        grid.verticalOffset += room.transform.localPosition.y;
-        grid.horizontalOffset += room.transform.localPosition.x;
+        grid.verticalOffset += room.GetComponent<Transform>().localPosition.y;
+        grid.horizontalOffset += room.GetComponent<Transform>().localPosition.x;
 
         for(int y = 0; y < grid.rows; y++)
         {
