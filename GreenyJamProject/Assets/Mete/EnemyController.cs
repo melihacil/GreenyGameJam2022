@@ -32,9 +32,6 @@ public class EnemyController : MonoBehaviour
 
     public float attackRange;
 
-    //Idle bool degeri
-    public bool notInRoom = false;
-
     private bool chooseDir = false;
 
     private bool dead = false;
@@ -66,14 +63,13 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         playerLayerMask = LayerMask.NameToLayer("PlayerLayer");
-        //Debug.Log(playerLayerMask.value);
+        Debug.Log(playerLayerMask.value);
         maxAtkktime = attackTime;
     }
 
     void Update()
     {
-        if (notInRoom)
-            return;
+
         switch (currState)
         {
             case (EnemyState.Wander):
@@ -165,6 +161,10 @@ public class EnemyController : MonoBehaviour
     }
 
 
+
+
+ 
+
     private IEnumerator Attack()
     {
         //Debug.Log(playerLayerMask);
@@ -188,8 +188,6 @@ public class EnemyController : MonoBehaviour
     {
         hasAttacked = false;
     }
-
-    //Silinebilir melee alanini cizdiriyor
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, torbaAttackRadius);
