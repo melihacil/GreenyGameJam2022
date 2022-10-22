@@ -11,16 +11,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemySpawnTime;
     [SerializeField] private GameObject enemyTrial;
     [SerializeField] private Transform spawnPos;
-    private bool canSpawnEnemy = true; //Will be used for timer
     void Start()
     {
         
     }
 
-
+    // Update is called once per frame
     void Update()
     {
-        if (!didSpawnEnemy && canSpawnEnemy)
+        if (!didSpawnEnemy)
         {
             Debug.Log("SpawningEnemy");
             didSpawnEnemy = true;
@@ -29,7 +28,6 @@ public class EnemySpawner : MonoBehaviour
 
         }
     }
-
     void ResetTimer()
     {
         didSpawnEnemy = false;

@@ -9,14 +9,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - EnemyLayer
   - Traps
   - 
-  - EnemyProjectile
-  - TrashcanMoving
+  - 
+  - 
   - 
   - 
   - 
@@ -44,7 +44,4 @@ TagManager:
     locked: 0
   - name: Door
     uniqueID: 1312685487
-    locked: 0
-  - name: UI
-    uniqueID: 1276372881
     locked: 0
