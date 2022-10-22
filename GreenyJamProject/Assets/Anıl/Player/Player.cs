@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.SetBool("isAttacking", true);
-                stopMovement();
+                //stopMovement();
                 Attack();
                 nextAttackTime = Time.time + 1f / attackSpeed;                
                 StartCoroutine(Wait(0.1f));
@@ -143,18 +143,20 @@ public class Player : MonoBehaviour
         }
 
     }
-    private void stopMovement()
+   /* private void stopMovement()
     {
+        anim.SetBool("canMove", false);
         float temp;
         temp = movementSpeed;
         movementSpeed = 0f;
         StartCoroutine(Waitt(0.8f));
         
-    }
+    }*/
     private IEnumerator Wait(float second)
     {
         yield return new WaitForSeconds(second);
         anim.SetBool("isAttacking", false);
+        //anim.SetBool("canMove", true);
     }
     private IEnumerator Waitt(float second)
     {
