@@ -35,6 +35,7 @@ public class FlyingEnemy : MonoBehaviour
             randomX = transform.position.x;
             randomY = transform.position.y;
         }
+        //Movement
         if (!hasChosenRandomPos)
         {
             randomX = Random.Range(randomPos_1.position.x, randomPos_2.position.x);
