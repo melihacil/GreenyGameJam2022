@@ -26,6 +26,8 @@ public class EnemyController : MonoBehaviour
 
     private bool dead = false;
 
+   public bool notInRoom = false;
+
     private Vector3 randomDir;
 
     void Start()
@@ -69,12 +71,17 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    //Rotation
+    //Rotation and Location
+
     private IEnumerator ChooseDirection()
     {
         chooseDir = true;
         yield return new WaitForSeconds(Random.Range(2f, 8f));
+
+    //Rotation
         randomDir = new Vector3(0, 0, Random.Range(0, 360));
+
+
         Quaternion nextRotation = Quaternion.Euler(randomDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
         chooseDir = false;

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 148117149}
   - component: {fileID: 148117148}
   - component: {fileID: 148117147}
-  - component: {fileID: 148117150}
+  - component: {fileID: 148117151}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -208,7 +208,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &148117150
+--- !u!114 &148117151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currRoom: {fileID: 0}
-  moveSpeedWhenRoomChange: 50
+  moveSpeedWhenRoomChange: 100
 --- !u!1001 &771791272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -229,8 +229,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7823697567491330624, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_Size.x
+      value: 0.18176033
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330624, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_Size.y
+      value: 0.22689795
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330624, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0012421682
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330624, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0010783412
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330626, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330626, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_SortingOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330626, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 495593425
+      objectReference: {fileID: 0}
     - target: {fileID: 7823697567491330627, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823697567491330627, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7823697567491330629, guid: 137ce0050b87b264f9cc9e8b3d795940, type: 3}
