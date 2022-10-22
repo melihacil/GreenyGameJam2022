@@ -177,7 +177,8 @@ public class EnemyController : MonoBehaviour
         if (health == 0)
         {
             isDead = true;
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Invoke("DestroyObject", 2f);
             GetComponent<Animator>().SetTrigger("Death");
         }
         Debug.Log(isDead);
@@ -189,6 +190,11 @@ public class EnemyController : MonoBehaviour
         transform.localScale -= new Vector3(0.01f, 0.01f, 0);
     }
 
+
+    private void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
     void Follow()
     {
         //Debug.Log((transform.position - player.transform.position).magnitude);
