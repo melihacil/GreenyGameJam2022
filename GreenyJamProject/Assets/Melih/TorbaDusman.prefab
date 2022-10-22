@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1276372881
-  m_SortingLayer: 0
+  m_SortingLayerID: 1481033089
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 831767917, guid: 26833bc0c9ad1cd4682ae440a923abbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -154,8 +154,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1276372881
-  m_SortingLayer: 0
+  m_SortingLayerID: 1481033089
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -1457786364, guid: 26833bc0c9ad1cd4682ae440a923abbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -238,8 +238,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1276372881
-  m_SortingLayer: 0
+  m_SortingLayerID: 1481033089
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 374525639, guid: 26833bc0c9ad1cd4682ae440a923abbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 2996526014835589052}
   m_Layer: 6
   m_Name: TorbaDusman
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,3 +462,9 @@ MonoBehaviour:
   torbaAttackResetTime: 1
   attackTime: 1
   attackFlashTorba: {fileID: 0}
+  isInRoom: 0
+  health: 0
+  healthVisuals:
+  - {fileID: 4480529187557863636}
+  - {fileID: 4721371582907761828}
+  - {fileID: 2321152644603556198}
