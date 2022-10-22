@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
 {
 
 
-    GameObject player; 
+    GameObject player;
 
     public EnemyState currState = EnemyState.Wander;
 
@@ -78,7 +78,7 @@ public class EnemyController : MonoBehaviour
             case (EnemyState.Follow):
                 Follow();
                 break;
-            case (EnemyState.Die):             
+            case (EnemyState.Die):
                 break;
             case (EnemyState.Torba):
                 EnemyType = 0;
@@ -86,15 +86,15 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        if(IsPlayerInRange(range) && currState != EnemyState.Die)
+        if (IsPlayerInRange(range) && currState != EnemyState.Die)
         {
             currState = EnemyState.Follow;
         }
-        else if(!IsPlayerInRange(range) && currState != EnemyState.Die)
+        else if (!IsPlayerInRange(range) && currState != EnemyState.Die)
         {
-            currState=EnemyState.Wander;
+            currState = EnemyState.Wander;
         }
-  
+
     }
 
     private bool IsPlayerInRange(float range)
@@ -163,14 +163,14 @@ public class EnemyController : MonoBehaviour
 
 
 
- 
+
 
     private IEnumerator Attack()
     {
         //Debug.Log(playerLayerMask);
         yield return new WaitForSeconds(2f);
-        TorbaAttack(); 
-   
+        TorbaAttack();
+
     }
 
     //Torba dusmaninin saldiriyor

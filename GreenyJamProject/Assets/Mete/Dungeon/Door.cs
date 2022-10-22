@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -16,12 +17,13 @@ public class Door : MonoBehaviour
     public GameObject doorCollider;
 
     private GameObject player;
-    
 
     private float widthOffset = 1.75f;
 
     private void Start()
     {
+        
+
       //  player = GameObject.FindGameObjectsWithTag("Player");
     }
     /*

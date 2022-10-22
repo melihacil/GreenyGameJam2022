@@ -293,12 +293,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8987270539902434158}
   - component: {fileID: 8987270539902434159}
-  - component: {fileID: 8987270539902434157}
   - component: {fileID: 8987270539902434156}
   - component: {fileID: 8987270539902434147}
-  - component: {fileID: 8987270539902434146}
   - component: {fileID: 5088374187194624226}
-  - component: {fileID: 5088374187194624225}
+  - component: {fileID: 2996526014835589052}
   m_Layer: 6
   m_Name: TorbaDusman
   m_TagString: Untagged
@@ -363,8 +361,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1827810431
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 83af7eecba50e8244b484183c62f5667, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -377,24 +375,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8987270539902434157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8987270539902434152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141fde3b8a9c9c6419f82c1e4e4ce47a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
-  publicPlayerTransform: {fileID: 0}
-  stopRange: 1.5
-  moveSpeed: 1
-  speed: 2
-  force: 2
 --- !u!50 &8987270539902434156
 Rigidbody2D:
   serializedVersion: 4
@@ -442,24 +422,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13358545, y: 0.16164756}
   m_EdgeRadius: 0
---- !u!114 &8987270539902434146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8987270539902434152}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091e640a191f43041a022b3cd8ab596a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPos: {fileID: 8987270538703473747}
-  playerLayerMask:
-    serializedVersion: 2
-    m_Bits: 1073741824
-  attackRadius: 1
-  attackResetTime: 1
 --- !u!95 &5088374187194624226
 Animator:
   serializedVersion: 4
@@ -480,7 +442,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5088374187194624225
+--- !u!114 &2996526014835589052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -489,11 +451,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8987270539902434152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54628de20fc52fe4f87379fd1c13f018, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e60fe7ce26761246a6c4f9308d8f620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
-  healthVisuals:
-  - {fileID: 4480529187557863636}
-  - {fileID: 4721371582907761828}
-  - {fileID: 2321152644603556198}
+  currState: 0
+  speed: 0
+  range: 0
+  notInRoom: 0
