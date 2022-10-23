@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     private Transform playerTransform;
@@ -111,6 +112,10 @@ public class Boss : MonoBehaviour
     {
         if (invulnerable)
             return;
+        if (bossHealth <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
         bossHealth -= 20;
         healthSlider.value = bossHealth;
     }
