@@ -67,7 +67,7 @@ public class Boss : MonoBehaviour
         //Following player
         if (!isAttacking)
         {
-            invulnerable = false;
+            invulnerable = true;
             yerBekleme = yerBeklemeMax;
             //GetComponent<Animator>().SetTrigger("Waiting");
             if (!hasChosenRandomTime)
@@ -90,7 +90,7 @@ public class Boss : MonoBehaviour
         }
         else
         {
-            invulnerable = true;
+            invulnerable = false;
             yerBekleme -= Time.deltaTime;
             if(yerBekleme <= 0)
             {
