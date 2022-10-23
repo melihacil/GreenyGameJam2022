@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float movementSpeed = 5f;
@@ -29,8 +29,14 @@ public class Player : MonoBehaviour
     public Vector2 idlePoint;
 
 
+    AudioSource audioSource;
+
+
 
     [SerializeField] private TrailRenderer tr;
+    [SerializeField]
+    AudioClip dashSound, ouchSound, hitSound, frameSound,
+    damageSound, walkSound, deathSound, breakSound;
     public static Player instance;
 
 
@@ -165,6 +171,7 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Dash()
     {
+        audioSource.PlayOneShot(dashSound);
         canDash = false;
         isDashing = true;
         tr.emitting = true;
@@ -185,12 +192,13 @@ public class Player : MonoBehaviour
     {
         
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
+        audioSource.PlayOneShot(hitSound);
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("Hit" + enemy.name);
             if (enemy.CompareTag("breakable"))
             {
+                audioSource.PlayOneShot(breakSound);
                 enemy.GetComponent<Breakables>().Destroy();
             }
             if (enemy.CompareTag("enemy"))
@@ -210,6 +218,7 @@ public class Player : MonoBehaviour
     {
         if(health == 0)
         {
+            SceneManager.LoadScene(0);
             this.enabled = false;
         }
         //animasyon gelecek
@@ -217,6 +226,7 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Invincibility()
     {
+        audioSource.PlayOneShot(frameSound);
         Physics2D.IgnoreLayerCollision(0,7,true);
         Physics2D.IgnoreLayerCollision(0,6,true);
         for (int i = 0; i < numberOfFlashes; i++)
@@ -232,7 +242,7 @@ public class Player : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        
+        audioSource.PlayOneShot(ouchSound);
         health = health - damage;
         death();
         Debug.Log("Health: " + health);
