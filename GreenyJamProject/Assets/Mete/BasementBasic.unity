@@ -4671,6 +4671,7 @@ MonoBehaviour:
   bottomDoor: {fileID: 0}
   doors: []
   enemyControllers: []
+  getPoints: []
 --- !u!61 &855495365
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4715,6 +4716,8 @@ MonoBehaviour:
     spawnerData: {fileID: 11400000, guid: db73562cf580f4f4cbc1ea25e00c0a1c, type: 2}
   - name: Kutu
     spawnerData: {fileID: 11400000, guid: c2abedc57b2b2f0479c171065d7bed9e, type: 2}
+  - name: Spawner
+    spawnerData: {fileID: 11400000, guid: 0e70b793a74bc8a43935d84b26d2fdf6, type: 2}
 --- !u!1 &894977197
 GameObject:
   m_ObjectHideFlags: 0

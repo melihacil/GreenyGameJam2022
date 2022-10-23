@@ -20,7 +20,7 @@ public class Room : MonoBehaviour
     public Door rightDoor;
     public Door topDoor;
     public Door bottomDoor;
-
+    public bool endLevel = false;
     public List<Door> doors = new List<Door> ();
 
     public EnemyController[] enemyControllers;
