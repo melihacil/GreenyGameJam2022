@@ -19,20 +19,19 @@ public class Player : MonoBehaviour
     public float nextInvincibilityTime = 0f;
     public float iFrameDuration;
     public int numberOfFlashes;
-    private SpriteRenderer spriteRend;
+    public SpriteRenderer spriteRend;
     public Animator anim;
-    private bool canDash = true;
-    private bool isDashing;
-    public float dashingPower = 100f;
+    public bool canDash = true;
+    public bool isDashing;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
-    public Vector2 idlePoint;
+    public float dashSpeed;
 
 
+    
 
     [SerializeField] private TrailRenderer tr;
     public static Player instance;
-
 
 
     void Start()
@@ -46,7 +45,7 @@ public class Player : MonoBehaviour
     {
         
     }
-
+    
     void Update()
     {
         float directionX = Input.GetAxisRaw("Horizontal");
@@ -118,10 +117,10 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.SetBool("isAttacking", true);
-                //stopMovement();
-                Attack();
+                
                 nextAttackTime = Time.time + 1f / attackSpeed;                
                 StartCoroutine(Wait(0.1f));
+                Attack();
                 anim.SetFloat("Horizontal", 0);
                 anim.SetFloat("Vertical", 0);
                 
@@ -140,29 +139,23 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) && canDash)
         {
             StartCoroutine(Dash());
+            
+
         }
 
     }
-   /* private void stopMovement()
-    {
-        anim.SetBool("canMove", false);
-        float temp;
-        temp = movementSpeed;
-        movementSpeed = 0f;
-        StartCoroutine(Waitt(0.8f));
-        
-    }*/
+
     private IEnumerator Wait(float second)
     {
         yield return new WaitForSeconds(second);
         anim.SetBool("isAttacking", false);
-        //anim.SetBool("canMove", true);
     }
-    private IEnumerator Waitt(float second)
+    /*private IEnumerator DterDelay(float second)
     {
         yield return new WaitForSeconds(second);
-        movementSpeed = 5f;
-    }
+       Destroy()
+    }*/
+
     private IEnumerator Dash()
     {
         canDash = false;
@@ -170,7 +163,7 @@ public class Player : MonoBehaviour
         tr.emitting = true;
         float temp;
         temp = movementSpeed;
-        movementSpeed = 10f;
+        movementSpeed = dashSpeed;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
         isDashing = false;
@@ -180,7 +173,7 @@ public class Player : MonoBehaviour
         
     }
 
-
+    
     private void Attack()
     {
         
@@ -192,10 +185,15 @@ public class Player : MonoBehaviour
             if (enemy.CompareTag("breakable"))
             {
                 enemy.GetComponent<Breakables>().Destroy();
+                
+
+
             }
             if (enemy.CompareTag("enemy"))
             {
-                enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
+                //enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
+                
+                
             }
             if (enemy.CompareTag("Boss"))
             {
@@ -217,6 +215,7 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Invincibility()
     {
+        
         Physics2D.IgnoreLayerCollision(0,7,true);
         Physics2D.IgnoreLayerCollision(0,6,true);
         for (int i = 0; i < numberOfFlashes; i++)
