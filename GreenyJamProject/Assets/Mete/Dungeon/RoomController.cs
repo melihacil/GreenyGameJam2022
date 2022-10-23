@@ -98,6 +98,7 @@ public class RoomController : MonoBehaviour
             Destroy(bossRoom.gameObject);
             var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
             loadedRooms.Remove(roomToRemove);
+            tempRoom.endLevel = true;
             LoadRoom("End", tempRoom.X, tempRoom.Y);
 
         }
