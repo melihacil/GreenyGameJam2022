@@ -150,10 +150,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(second);
         anim.SetBool("isAttacking", false);
     }
-    /*private IEnumerator DterDelay(float second)
+    /*private IEnumerator Delay(float second)
     {
         yield return new WaitForSeconds(second);
-       Destroy()
+        
     }*/
 
     private IEnumerator Dash()
@@ -206,12 +206,19 @@ public class Player : MonoBehaviour
     }
     void death()
     {
-        if(health == 0)
+        if(health <= 0)
         {
+            anim.SetBool("isDead", true);
             this.enabled = false;
         }
-        //animasyon gelecek
         
+       
+        
+    }
+    public void state()
+    {
+        anim.SetBool("isDead", false);
+        anim.SetBool("isDust", true);
     }
     private IEnumerator Invincibility()
     {

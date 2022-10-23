@@ -630,12 +630,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5539415834082467194, guid: fa80cd3ba7ecd3249b56eeda3e4ec471, type: 3}
+      propertyPath: health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539415834082467194, guid: fa80cd3ba7ecd3249b56eeda3e4ec471, type: 3}
       propertyPath: dashSound
       value: 
       objectReference: {fileID: 8300000, guid: 68d9a413dd52bfb45a96762a635b43e0, type: 3}
     - target: {fileID: 5539415834082467194, guid: fa80cd3ba7ecd3249b56eeda3e4ec471, type: 3}
       propertyPath: dashSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539415834082467194, guid: fa80cd3ba7ecd3249b56eeda3e4ec471, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539415834082467198, guid: fa80cd3ba7ecd3249b56eeda3e4ec471, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5539415834082467199, guid: fa80cd3ba7ecd3249b56eeda3e4ec471, type: 3}
       propertyPath: m_Name
