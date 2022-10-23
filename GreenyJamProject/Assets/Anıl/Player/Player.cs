@@ -197,6 +197,10 @@ public class Player : MonoBehaviour
             {
                 enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
             }
+            if (enemy.CompareTag("Boss"))
+            {
+                Debug.Log("hit boss");
+            }
            
         }
         
