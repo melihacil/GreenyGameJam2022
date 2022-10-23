@@ -199,6 +199,7 @@ public class Player : MonoBehaviour
             }
             if (enemy.CompareTag("Boss"))
             {
+                enemy.gameObject.GetComponent<Boss>().DamageBoss();
                 Debug.Log("hit boss");
             }
            

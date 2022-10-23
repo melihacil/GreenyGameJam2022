@@ -12,7 +12,11 @@ public enum EnemyState
 
     Torba,
 
-    TorbaAttack
+    TorbaAttack,
+
+    Spawner,
+
+    Fly
 };
 //STOP EKLENECEK
 
@@ -48,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
     public bool isInRoom = false;
 
-    private int EnemyType = 0;
+    public int EnemyType = 0;
     /*
      * 0 Torba
      * 1 Kuþ
@@ -84,6 +88,7 @@ public class EnemyController : MonoBehaviour
         {
             healthVisual.SetActive(false);
         }
+        if (healthVisuals.Length > 0)
         healthVisuals[healthVisuals.Length - 1].SetActive(true);
 
 
@@ -112,8 +117,24 @@ public class EnemyController : MonoBehaviour
                 EnemyType = 0;
                 currState = EnemyState.Wander;
                 break;
-        }
+            case (EnemyState.Spawner):
+                Spawner();
+                break;
+            case (EnemyState.Fly):
+                Fly();
 
+                break;
+        }
+        if (EnemyType == 2 )
+        {
+            currState = EnemyState.Spawner;
+            return;
+        }
+        else if (EnemyType == 1)
+        {
+            currState = EnemyState.Fly;
+            return;
+        }
         if (IsPlayerInRange(range) && currState != EnemyState.Die)
         {
             currState = EnemyState.Follow;
@@ -167,9 +188,9 @@ public class EnemyController : MonoBehaviour
 
     public void DamageEnemy()
     {
-        visualCount--;
-        if (isDead)
+        if (isDead || healthVisuals.Length <= 0)
             return;
+        visualCount--;
         healthVisuals[health].SetActive(false);
         health--;
         if (health >= 0)
@@ -219,10 +240,56 @@ public class EnemyController : MonoBehaviour
     }
 
 
+    EnemySpawner spawner;
+    void Spawner()
+    {
+        spawner = GetComponent<EnemySpawner>();
 
 
 
 
+    }
+
+
+    #region Fly
+
+    [Header("Fly Attributes")]
+    [SerializeField] private float attackSpeed;
+    [SerializeField] private Transform flyAttackPos;
+    [SerializeField] private float currentTime = 0.2f;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private float resetAttackTime;
+    [SerializeField] private bool hasFlyAttacked = false;
+    void Fly()
+    {
+        Debug.Log("Fly--");
+        if (currentTime <= 0 && !hasFlyAttacked)
+        {
+            hasFlyAttacked = true;
+            FlyAttack();
+        }
+        currentTime -= Time.deltaTime;
+
+
+
+    }
+    void FlyAttack()
+    {
+        Debug.Log("Attacking");
+        Instantiate(projectile, flyAttackPos.position, Quaternion.identity);
+        Invoke(nameof(ResetFlyAttack), resetAttackTime);
+    }
+
+
+    void ResetFlyAttack()
+    {
+        hasFlyAttacked = false;
+        currentTime = attackSpeed;
+    }
+
+
+
+    #endregion
     private IEnumerator Attack()
     {
         //Debug.Log(playerLayerMask);

@@ -22,7 +22,7 @@ public class ProjectileScript : MonoBehaviour
     {
         if (!isShot)
         {
-            Debug.Log(player.position);
+            Debug.Log(player.position + " Attacking");
             isShot = true;
 
             rb.AddForce((player.position - transform.position) * projectileForce, ForceMode2D.Impulse);
@@ -35,7 +35,7 @@ public class ProjectileScript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 30)
+        if (collision.gameObject.layer == 8)
         {
             Debug.Log("Hit player");
             //collision.gameObject.GetComponent<PlayerStats>().Damage(5f);

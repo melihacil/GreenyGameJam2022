@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     private Transform playerTransform;
@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float randomMax;
     [SerializeField] private float randomMin;
     [SerializeField] private GameObject blast;
-    private LayerMask playerMask;
+    [SerializeField] private LayerMask playerMask;
     //Attacking or following
     private bool isAttacking;
     private bool hasChosenRandomTime;
@@ -21,12 +21,26 @@ public class Boss : MonoBehaviour
     public float havaBekleme;
     public float yerBeklemeMax;
     public float attackRadius;
+
+    private bool isVulnerable = false;
+
+
+
+    [SerializeField] private float bossHealth;
+    [SerializeField] private Slider healthSlider;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         offset = transform.position - bossShadow.position;
-        playerMask = LayerMask.NameToLayer("PlayerLayer");
+        //playerMask = LayerMask.NameToLayer("PlayerLayer");
+
+        healthSlider.maxValue = bossHealth;
+        healthSlider.value = bossHealth;
     }
 
     // Update is called once per frame
@@ -74,6 +88,13 @@ public class Boss : MonoBehaviour
         }
     }
 
+
+    public void DamageBoss()
+    {
+        bossHealth -= 20;
+        healthSlider.value = bossHealth;
+    }
+
     public void ResetFalse()
     {
         GetComponent<Animator>().SetBool("isReset", false);
@@ -83,9 +104,13 @@ public class Boss : MonoBehaviour
     //Attack animasyonunun bittiði blok
     public void YerTrue()
     {
-        Collider2D collision = Physics2D.OverlapCircle(bossShadow.position,attackRadius, playerMask.value);
+        Collider2D collision = Physics2D.OverlapCircle(bossShadow.position,attackRadius, playerMask);
         if (collision != null)
+        {
             Debug.Log(collision.gameObject.name);
+            collision.gameObject.GetComponent<Player>().takeDamage(3f);
+
+        }
         GetComponent<Animator>().SetBool("isAttack", false);
         GetComponent<Animator>().SetBool("Yer", true);
     }

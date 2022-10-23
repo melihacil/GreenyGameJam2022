@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7569204051641030888}
   - component: {fileID: 7569204051641030889}
   - component: {fileID: -3024000916706266029}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1827810431
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5476901, g: 1, b: 0.3820755, a: 1}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6845d7f9d3f7fbc45a050e8475fae1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileForce: 1
+  projectileForce: 2
 --- !u!61 &7569204051641030889
 BoxCollider2D:
   m_ObjectHideFlags: 0

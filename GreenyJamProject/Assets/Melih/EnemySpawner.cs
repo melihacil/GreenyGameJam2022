@@ -11,23 +11,27 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemySpawnTime;
     [SerializeField] private GameObject enemyTrial;
     [SerializeField] private Transform spawnPos;
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (!didSpawnEnemy)
-        {
-            Debug.Log("SpawningEnemy");
-            didSpawnEnemy = true;
-            Instantiate(enemyTrial, spawnPos.position, Quaternion.identity);
-            Invoke(nameof(ResetTimer), enemySpawnTime);
-
-        }
+        if (!GetComponent<EnemyController>().isInRoom)
+            return;
     }
+
+    public void SpawnEnemy()
+    {
+        Debug.Log("SpawningEnemy");
+        didSpawnEnemy = true;
+        Instantiate(enemyTrial, spawnPos.position, Quaternion.identity);
+        Invoke(nameof(ResetTimer), enemySpawnTime);
+    }
+
+
+
+
+
     void ResetTimer()
     {
         didSpawnEnemy = false;
