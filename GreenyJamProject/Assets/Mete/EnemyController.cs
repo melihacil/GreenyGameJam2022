@@ -61,6 +61,7 @@ public class EnemyController : MonoBehaviour
      * 0 Torba
      * 1 Kuþ
      * 2 Bidon
+     * 3 boss
      */
     private Vector3 randomDir;
 
@@ -108,6 +109,12 @@ public class EnemyController : MonoBehaviour
     {
         if (!isInRoom)
             return;
+        if (EnemyType == 3)
+        {
+            Debug.Log("Player in boss room");
+            //BOSS
+            return;
+        }
         if (isDead)
         {
             DeathFunction();

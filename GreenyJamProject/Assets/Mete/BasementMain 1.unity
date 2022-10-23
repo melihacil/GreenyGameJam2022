@@ -382,6 +382,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1993342285776720858, guid: f60eee2d032339844b0edd0cf9a943e1, type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 2240
+      objectReference: {fileID: 0}
     - target: {fileID: 1993342285776720862, guid: f60eee2d032339844b0edd0cf9a943e1, type: 3}
       propertyPath: m_SortingLayer
       value: 4

@@ -25,35 +25,48 @@ public class Boss : MonoBehaviour
     private bool isVulnerable = false;
 
 
-
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private float bossHealth;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private bool invulnerable;
+    EnemyController controller;
 
 
-
-
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        canvas.enabled = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<EnemyController>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         offset = transform.position - bossShadow.position;
         //playerMask = LayerMask.NameToLayer("PlayerLayer");
 
         healthSlider.maxValue = bossHealth;
         healthSlider.value = bossHealth;
+
+
+        spriteRenderer.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (!RoomController.instance.currRoom.endLevel){ 
+        if (!controller.isInRoom)
             return;
+        else
+        {
+            spriteRenderer.enabled = true;
+            canvas.enabled = true;
         }
-
         //Following player
         if (!isAttacking)
         {
+            invulnerable = false;
             yerBekleme = yerBeklemeMax;
             //GetComponent<Animator>().SetTrigger("Waiting");
             if (!hasChosenRandomTime)
@@ -76,7 +89,7 @@ public class Boss : MonoBehaviour
         }
         else
         {
-            
+            invulnerable = true;
             yerBekleme -= Time.deltaTime;
             if(yerBekleme <= 0)
             {
@@ -96,6 +109,8 @@ public class Boss : MonoBehaviour
 
     public void DamageBoss()
     {
+        if (invulnerable)
+            return;
         bossHealth -= 20;
         healthSlider.value = bossHealth;
     }
