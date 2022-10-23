@@ -43,6 +43,8 @@ public class EnemyController : MonoBehaviour
     private bool interrupted = false;
 
     private bool hasAttacked = false;
+
+   
     
     [SerializeField] private float torbaAttackRadius;
     [SerializeField] private float torbaAttackResetTime;
@@ -53,6 +55,8 @@ public class EnemyController : MonoBehaviour
     public bool isInRoom = false;
 
     public int EnemyType = 0;
+
+    bool Dummy = false;
     /*
      * 0 Torba
      * 1 Kuþ
@@ -70,6 +74,9 @@ public class EnemyController : MonoBehaviour
     private int visualCount;
     private bool isDead = false;
     [SerializeField] private GameObject[] healthVisuals;
+
+
+
 
 
 
@@ -146,6 +153,16 @@ public class EnemyController : MonoBehaviour
             currState = EnemyState.Wander;
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if (!Dummy)
+        {
+            //grid ata
+            //dummy=true
+            //gridi sonra çalýþtýr.
+        }
     }
 
     private bool IsPlayerInRange(float range)
@@ -285,9 +302,18 @@ public class EnemyController : MonoBehaviour
         if (!choseApoint)
         {
             Debug.Log("choosing point");
-            vectors = FindObjectOfType<RoomController>().currRoom.GetComponent<GridController>().availablePoints;
-            target = vectors[Random.Range(0, vectors.Count)];
-            Debug.Log(target);
+
+            //vectors = FindObjectOfType<RoomController>().currRoom.GetComponent<GridController>().availablePoints;
+            // GridController 
+            float x = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.x;
+
+            float y = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.y;
+
+
+
+
+            target.x = Random.Range(x - 15, x + 15);
+            target.y = Random.Range(y - 7, y + 7);
             choseApoint = true;
             Invoke(nameof(ResetPoint), randomPointTime);
         }
@@ -327,11 +353,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float currentTime = 0.2f;
     [SerializeField] private float randomPointTime;
     private bool choseApoint = false;
-    List<Vector2> vectors;
+    //List<Vector2> vectors;
     Vector2 target;
     void Fly()
     {
-
         if (currentTime <= 0 && !hasFlyAttacked)
         {
             hasFlyAttacked = true;
@@ -340,9 +365,20 @@ public class EnemyController : MonoBehaviour
         currentTime -= Time.deltaTime;
         if (!choseApoint)
         {
-            vectors = FindObjectOfType<RoomController>().currRoom.GetComponent<GridController>().availablePoints;
+            //availablepoint curr room mevcutmu
+            
+            //vectors = FindObjectOfType<RoomController>().currRoom.gameObject.GetComponentInChildren<GridController>().availablePoints;
+            //vectors = GameObject.Find(FindObjectOfType<RoomController>().currRoom.gameObject.name).GetComponentInChildren<GridController>().availablePoints;
             //vectors = FindObjectOfType<GridController>().availablePoints;
-            target = vectors[Random.Range(0, vectors.Count)];
+            float x = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.x;
+
+            float y = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.y;
+
+
+
+
+            target.x = Random.Range(x - 15, x + 15);
+            target.y = Random.Range(y -7, y + 7);
             choseApoint = true;
             Invoke(nameof(ResetPoint), randomPointTime);
         }

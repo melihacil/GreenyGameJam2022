@@ -25,6 +25,7 @@ public class Room : MonoBehaviour
 
     public EnemyController[] enemyControllers;
 
+    public List<Vector2> getPoints = new List<Vector2>();
 
     void Start()
     {
