@@ -285,7 +285,7 @@ public class EnemyController : MonoBehaviour
         if (!choseApoint)
         {
             Debug.Log("choosing point");
-            vectors = FindObjectOfType<GridController>().availablePoints;
+            vectors = FindObjectOfType<RoomController>().currRoom.GetComponent<GridController>().availablePoints;
             target = vectors[Random.Range(0, vectors.Count)];
             Debug.Log(target);
             choseApoint = true;
@@ -340,7 +340,8 @@ public class EnemyController : MonoBehaviour
         currentTime -= Time.deltaTime;
         if (!choseApoint)
         {
-            vectors = FindObjectOfType<GridController>().availablePoints;
+            vectors = FindObjectOfType<RoomController>().currRoom.GetComponent<GridController>().availablePoints;
+            Debug.Log(vectors);
             target = vectors[Random.Range(0, vectors.Count)];
             choseApoint = true;
             Invoke(nameof(ResetPoint), randomPointTime);

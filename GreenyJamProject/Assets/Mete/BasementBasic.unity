@@ -4713,6 +4713,8 @@ MonoBehaviour:
   spawnerData:
   - name: Cop
     spawnerData: {fileID: 11400000, guid: db73562cf580f4f4cbc1ea25e00c0a1c, type: 2}
+  - name: Kutu
+    spawnerData: {fileID: 11400000, guid: c2abedc57b2b2f0479c171065d7bed9e, type: 2}
 --- !u!1 &894977197
 GameObject:
   m_ObjectHideFlags: 0

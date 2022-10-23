@@ -22,7 +22,7 @@ public class RoomController : MonoBehaviour
 
     RoomInfo currentLoadRoomData;
 
-    Room currRoom;
+    public Room currRoom { get; private set; }
 
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
 
