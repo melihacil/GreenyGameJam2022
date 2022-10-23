@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 46434839}
   - component: {fileID: 46434838}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Boss-Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -46,6 +46,11 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!RoomController.instance.currRoom.endLevel){ 
+            return;
+        }
+
         //Following player
         if (!isAttacking)
         {
