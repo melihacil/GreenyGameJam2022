@@ -25,15 +25,5 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("SpawningEnemy");
         didSpawnEnemy = true;
         Instantiate(enemyTrial, spawnPos.position, Quaternion.identity);
-        Invoke(nameof(ResetTimer), enemySpawnTime);
-    }
-
-
-
-
-
-    void ResetTimer()
-    {
-        didSpawnEnemy = false;
     }
 }

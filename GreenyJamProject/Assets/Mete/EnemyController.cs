@@ -90,7 +90,10 @@ public class EnemyController : MonoBehaviour
         }
         if (healthVisuals.Length > 0)
         healthVisuals[healthVisuals.Length - 1].SetActive(true);
-
+        if(healthVisuals.Length > 3)
+        {
+            healthVisuals[2].SetActive(true);
+        }
 
     }
 
@@ -122,7 +125,6 @@ public class EnemyController : MonoBehaviour
                 break;
             case (EnemyState.Fly):
                 Fly();
-
                 break;
         }
         if (EnemyType == 2 )
@@ -190,25 +192,38 @@ public class EnemyController : MonoBehaviour
     {
         if (isDead || healthVisuals.Length <= 0)
             return;
+
         visualCount--;
         healthVisuals[health].SetActive(false);
+        if (healthVisuals.Length > 3 && health <= 3)
+        {
+
+            healthVisuals[3].SetActive(true);
+        }
         health--;
         if (health >= 0)
             healthVisuals[health].SetActive(true);
+        if (healthVisuals.Length > 3 && health ==3)
+        {
+            health--;
+        } 
         if (health == 0)
         {
+            Debug.Log("dead");
             isDead = true;
             //gameObject.SetActive(false);
             Invoke("DestroyObject", 2f);
-            GetComponent<Animator>().SetTrigger("Death");
+            if (EnemyType == 0)
+                GetComponent<Animator>().SetTrigger("Death");
         }
         Debug.Log(isDead);
     }
 
     public void DeathFunction()
     {
-        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
+        Debug.Log("Making it smaller");
         transform.localScale -= new Vector3(0.02f, 0.02f, 0);
+        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
     }
 
 
@@ -239,39 +254,105 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
+    #region Spawner
+    [Header("Spawner")]
     EnemySpawner spawner;
+    private bool hasInitialized = false;
+    [SerializeField] private bool hasSpawned;
+    [SerializeField] private float spawnTime;
+    [SerializeField] private float resetSpawnTime;
+
     void Spawner()
     {
-        spawner = GetComponent<EnemySpawner>();
+        if (!hasInitialized)
+        {
+            spawner = GetComponent<EnemySpawner>();
+            currentTime = 2f;
+            hasInitialized = true;
+        }
 
+        //Movement 
+        //Spawning
+        //Getting grid vectors
 
+        currentTime -= Time.deltaTime;
+        if (currentTime <= 0 && !hasSpawned)
+        {
+            hasSpawned = true;
+            SpawnEnemy();
+        }
+
+        if (!choseApoint)
+        {
+            Debug.Log("choosing point");
+            vectors = FindObjectOfType<GridController>().availablePoints;
+            target = vectors[Random.Range(0, vectors.Count)];
+            Debug.Log(target);
+            choseApoint = true;
+            Invoke(nameof(ResetPoint), randomPointTime);
+        }
+        if (EnemyType == 2 && (Vector2)transform.position == target)
+            GetComponent<Animator>().SetTrigger("Idle");
+        else if (EnemyType == 2)
+            GetComponent<Animator>().SetTrigger("Run");
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
 
     }
+    void ResetSpawner()
+    {
+        hasSpawned = false;
+        currentTime = spawnTime;
+    }
+    void SpawnEnemy()
+    {
+        spawner.SpawnEnemy();
+        Invoke(nameof(ResetSpawner), resetSpawnTime);
+    }
 
+    #endregion
 
     #region Fly
 
     [Header("Fly Attributes")]
     [SerializeField] private float attackSpeed;
     [SerializeField] private Transform flyAttackPos;
-    [SerializeField] private float currentTime = 0.2f;
+
     [SerializeField] private GameObject projectile;
     [SerializeField] private float resetAttackTime;
     [SerializeField] private bool hasFlyAttacked = false;
+
+
+    [Header("Time")]
+    [SerializeField] private float currentTime = 0.2f;
+    [SerializeField] private float randomPointTime;
+    private bool choseApoint = false;
+    List<Vector2> vectors;
+    Vector2 target;
     void Fly()
     {
-        Debug.Log("Fly--");
+
         if (currentTime <= 0 && !hasFlyAttacked)
         {
             hasFlyAttacked = true;
             FlyAttack();
         }
         currentTime -= Time.deltaTime;
+        if (!choseApoint)
+        {
+            vectors = FindObjectOfType<GridController>().availablePoints;
+            target = vectors[Random.Range(0, vectors.Count)];
+            choseApoint = true;
+            Invoke(nameof(ResetPoint), randomPointTime);
+        }
+        
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
+    }
 
-
+    void ResetPoint()
+    {
+        choseApoint = false;
     }
     void FlyAttack()
     {
