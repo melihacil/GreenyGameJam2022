@@ -193,7 +193,15 @@ public class Player : MonoBehaviour
             {
                 enemy.GetComponent<Breakables>().Destroy();
             }
-            
+            if (enemy.CompareTag("enemy"))
+            {
+                enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
+            }
+            if (enemy.CompareTag("Boss"))
+            {
+                enemy.gameObject.GetComponent<Boss>().DamageBoss();
+                Debug.Log("hit boss");
+            }
            
         }
         

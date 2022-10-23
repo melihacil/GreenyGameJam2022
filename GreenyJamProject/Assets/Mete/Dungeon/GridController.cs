@@ -51,7 +51,7 @@ public class GridController : MonoBehaviour
 
         GetComponentInParent<ObjectRoomSpawner>().InitialiseObjectSpawning();
 
-
+        GetComponentInParent<Room>().getPoints = availablePoints;
     }
 
 

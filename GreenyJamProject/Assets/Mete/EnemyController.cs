@@ -12,7 +12,11 @@ public enum EnemyState
 
     Torba,
 
-    TorbaAttack
+    TorbaAttack,
+
+    Spawner,
+
+    Fly
 };
 //STOP EKLENECEK
 
@@ -40,6 +44,8 @@ public class EnemyController : MonoBehaviour
 
     private bool hasAttacked = false;
 
+   
+    
     [SerializeField] private float torbaAttackRadius;
     [SerializeField] private float torbaAttackResetTime;
     [SerializeField] private float attackTime;
@@ -48,15 +54,31 @@ public class EnemyController : MonoBehaviour
 
     public bool isInRoom = false;
 
-    private int EnemyType = 0;
+    public int EnemyType = 0;
+
+    bool Dummy = false;
     /*
      * 0 Torba
      * 1 Kuþ
      * 2 Bidon
+     * 3 boss
      */
     private Vector3 randomDir;
 
     private LayerMask playerLayerMask;
+
+
+    //Health Stuff
+
+
+    [SerializeField] private int health;
+    private int visualCount;
+    private bool isDead = false;
+    [SerializeField] private GameObject[] healthVisuals;
+
+
+
+
 
 
     void Start()
@@ -67,12 +89,37 @@ public class EnemyController : MonoBehaviour
         playerLayerMask = LayerMask.NameToLayer("PlayerLayer");
         Debug.Log(playerLayerMask.value);
         maxAtkktime = attackTime;
+
+        health = healthVisuals.Length - 1;
+        visualCount = healthVisuals.Length;
+        foreach (var healthVisual in healthVisuals)
+        {
+            healthVisual.SetActive(false);
+        }
+        if (healthVisuals.Length > 0)
+        healthVisuals[healthVisuals.Length - 1].SetActive(true);
+        if(healthVisuals.Length > 3)
+        {
+            healthVisuals[2].SetActive(true);
+        }
+
     }
 
     void Update()
     {
         if (!isInRoom)
             return;
+        if (EnemyType == 3)
+        {
+            Debug.Log("Player in boss room");
+            //BOSS
+            return;
+        }
+        if (isDead)
+        {
+            DeathFunction();
+            return;
+        }
         switch (currState)
         {
             case (EnemyState.Wander):
@@ -87,8 +134,23 @@ public class EnemyController : MonoBehaviour
                 EnemyType = 0;
                 currState = EnemyState.Wander;
                 break;
+            case (EnemyState.Spawner):
+                Spawner();
+                break;
+            case (EnemyState.Fly):
+                Fly();
+                break;
         }
-
+        if (EnemyType == 2 )
+        {
+            currState = EnemyState.Spawner;
+            return;
+        }
+        else if (EnemyType == 1)
+        {
+            currState = EnemyState.Fly;
+            return;
+        }
         if (IsPlayerInRange(range) && currState != EnemyState.Die)
         {
             currState = EnemyState.Follow;
@@ -98,6 +160,16 @@ public class EnemyController : MonoBehaviour
             currState = EnemyState.Wander;
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if (!Dummy)
+        {
+            //grid ata
+            //dummy=true
+            //gridi sonra çalýþtýr.
+        }
     }
 
     private bool IsPlayerInRange(float range)
@@ -140,6 +212,49 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    public void DamageEnemy()
+    {
+        if (isDead || healthVisuals.Length <= 0)
+            return;
+
+        visualCount--;
+        healthVisuals[health].SetActive(false);
+        if (healthVisuals.Length > 3 && health <= 3)
+        {
+
+            healthVisuals[3].SetActive(true);
+        }
+        health--;
+        if (health >= 0)
+            healthVisuals[health].SetActive(true);
+        if (healthVisuals.Length > 3 && health ==3)
+        {
+            health--;
+        } 
+        if (health == 0)
+        {
+            Debug.Log("dead");
+            isDead = true;
+            //gameObject.SetActive(false);
+            Invoke("DestroyObject", 2f);
+            if (EnemyType == 0)
+                GetComponent<Animator>().SetTrigger("Death");
+        }
+        Debug.Log(isDead);
+    }
+
+    public void DeathFunction()
+    {
+        Debug.Log("Making it smaller");
+        transform.localScale -= new Vector3(0.02f, 0.02f, 0);
+        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
+    }
+
+
+    private void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
     void Follow()
     {
         //Debug.Log((transform.position - player.transform.position).magnitude);
@@ -163,11 +278,143 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    #region Spawner
+    [Header("Spawner")]
+    EnemySpawner spawner;
+    private bool hasInitialized = false;
+    [SerializeField] private bool hasSpawned;
+    [SerializeField] private float spawnTime;
+    [SerializeField] private float resetSpawnTime;
+
+    void Spawner()
+    {
+        if (!hasInitialized)
+        {
+            spawner = GetComponent<EnemySpawner>();
+            currentTime = 2f;
+            hasInitialized = true;
+        }
+
+        //Movement 
+        //Spawning
+        //Getting grid vectors
+
+        currentTime -= Time.deltaTime;
+        if (currentTime <= 0 && !hasSpawned)
+        {
+            hasSpawned = true;
+            SpawnEnemy();
+        }
+
+        if (!choseApoint)
+        {
+            Debug.Log("choosing point");
+
+            //vectors = FindObjectOfType<RoomController>().currRoom.GetComponent<GridController>().availablePoints;
+            // GridController 
+            float x = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.x;
+
+            float y = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.y;
 
 
 
 
+            target.x = Random.Range(x - 15, x + 15);
+            target.y = Random.Range(y - 7, y + 7);
+            choseApoint = true;
+            Invoke(nameof(ResetPoint), randomPointTime);
+        }
+        if (EnemyType == 2 && (Vector2)transform.position == target)
+            GetComponent<Animator>().SetTrigger("Idle");
+        else if (EnemyType == 2)
+            GetComponent<Animator>().SetTrigger("Run");
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
+
+    }
+    void ResetSpawner()
+    {
+        hasSpawned = false;
+        currentTime = spawnTime;
+    }
+    void SpawnEnemy()
+    {
+        spawner.SpawnEnemy();
+        Invoke(nameof(ResetSpawner), resetSpawnTime);
+    }
+
+    #endregion
+
+    #region Fly
+
+    [Header("Fly Attributes")]
+    [SerializeField] private float attackSpeed;
+    [SerializeField] private Transform flyAttackPos;
+
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private float resetAttackTime;
+    [SerializeField] private bool hasFlyAttacked = false;
+
+
+    [Header("Time")]
+    [SerializeField] private float currentTime = 0.2f;
+    [SerializeField] private float randomPointTime;
+    private bool choseApoint = false;
+    //List<Vector2> vectors;
+    Vector2 target;
+    void Fly()
+    {
+        if (currentTime <= 0 && !hasFlyAttacked)
+        {
+            hasFlyAttacked = true;
+            FlyAttack();
+        }
+        currentTime -= Time.deltaTime;
+        if (!choseApoint)
+        {
+            //availablepoint curr room mevcutmu
+            
+            //vectors = FindObjectOfType<RoomController>().currRoom.gameObject.GetComponentInChildren<GridController>().availablePoints;
+            //vectors = GameObject.Find(FindObjectOfType<RoomController>().currRoom.gameObject.name).GetComponentInChildren<GridController>().availablePoints;
+            //vectors = FindObjectOfType<GridController>().availablePoints;
+            float x = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.x;
+
+            float y = FindObjectOfType<RoomController>().currRoom.gameObject.transform.position.y;
+
+
+
+
+            target.x = Random.Range(x - 15, x + 15);
+            target.y = Random.Range(y -7, y + 7);
+            choseApoint = true;
+            Invoke(nameof(ResetPoint), randomPointTime);
+        }
+        
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+    }
+
+    void ResetPoint()
+    {
+        choseApoint = false;
+    }
+    void FlyAttack()
+    {
+        Debug.Log("Attacking");
+        Instantiate(projectile, flyAttackPos.position, Quaternion.identity);
+        Invoke(nameof(ResetFlyAttack), resetAttackTime);
+    }
+
+
+    void ResetFlyAttack()
+    {
+        hasFlyAttacked = false;
+        currentTime = attackSpeed;
+    }
+
+
+
+    #endregion
     private IEnumerator Attack()
     {
         //Debug.Log(playerLayerMask);

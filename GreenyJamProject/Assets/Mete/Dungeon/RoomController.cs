@@ -22,7 +22,7 @@ public class RoomController : MonoBehaviour
 
     RoomInfo currentLoadRoomData;
 
-    Room currRoom;
+    public Room currRoom { get; private set; }
 
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
 
@@ -193,12 +193,19 @@ public class RoomController : MonoBehaviour
         CameraController.instance.currRoom = room;
         currRoom = room;
 
-        UpdateRooms();
-        
+        StartCoroutine(RoomCoroutine());
+
     }
 
-    
-    private void UpdateRooms()
+    public IEnumerator RoomCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        UpdateRooms();
+
+    }
+
+
+    public void UpdateRooms()
     {
        foreach(Room room in loadedRooms)
         {
@@ -213,17 +220,40 @@ public class RoomController : MonoBehaviour
                         enemy.isInRoom = false;
                         Debug.Log("Not enemy");
                     }
+
+                    foreach(Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(false);
+                    }
+                }
+                else
+                {
+                    foreach (Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(false);
+                    }
                 }
             }
             else
             {
                 EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
-                if (enemies != null)
+                if (enemies.Length > 0)
                 {
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.isInRoom = true;
                         Debug.Log("enemy");
+                    }
+                    foreach (Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(true);
+                    }
+                }
+                else
+                {
+                    foreach (Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(false);
                     }
                 }
             }

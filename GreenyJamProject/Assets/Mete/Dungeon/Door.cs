@@ -22,11 +22,11 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        
 
-      //  player = GameObject.FindGameObjectsWithTag("Player");
+    player = GameObject.FindGameObjectWithTag("Player");
+
     }
-    /*
+   
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
@@ -34,16 +34,16 @@ public class Door : MonoBehaviour
             switch (doorType)
             {
                 case DoorType.bottom:
-                    player.transform.position = new Vector2(transform.position.x, transform.position - widthOffset);
+                    player.transform.position = new Vector2(transform.position.x, transform.position.y - widthOffset);
                         break;
                 case DoorType.left:
-                    player.transform.position = new Vector2(transform.position.x - widthOffset, transform.position);
+                    player.transform.position = new Vector2(transform.position.x - widthOffset, transform.position.y);
                     break;
                 case DoorType.right:
-                    player.transform.position = new Vector2(transform.position.x + widthOffset, transform.position);
+                    player.transform.position = new Vector2(transform.position.x + widthOffset, transform.position.y);
                     break;
                 case DoorType.top:
-                    player.transform.position = new Vector2(transform.position.x, transform.position + widthOffset);
+                    player.transform.position = new Vector2(transform.position.x, transform.position.y + widthOffset);
                     break;
             }
         }
@@ -51,7 +51,7 @@ public class Door : MonoBehaviour
      
     }
 
-    */
+    
   
 }
 
