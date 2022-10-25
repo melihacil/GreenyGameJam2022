@@ -39,6 +39,7 @@ public class ProjectileScript : MonoBehaviour
         {
             Debug.Log("Hit player");
             //collision.gameObject.GetComponent<PlayerStats>().Damage(5f);
+            collision.gameObject.GetComponent<Player>().takeDamage(2f);
         }
         Destroy(gameObject);
     }
