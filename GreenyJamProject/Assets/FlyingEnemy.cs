@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class FlyingEnemy : MonoBehaviour
 {
+    //Not used here anymore
 
+
+    [HideInInspector]
+    public float damnNiggas;
 
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform randomPos_1, randomPos_2;
@@ -20,6 +24,8 @@ public class FlyingEnemy : MonoBehaviour
     {
         
     }
+
+
 
     float randomX;
     float randomY;
