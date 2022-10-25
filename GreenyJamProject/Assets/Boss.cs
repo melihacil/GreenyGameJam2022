@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     private Transform playerTransform;
@@ -66,7 +67,7 @@ public class Boss : MonoBehaviour
         //Following player
         if (!isAttacking)
         {
-            invulnerable = false;
+            invulnerable = true;
             yerBekleme = yerBeklemeMax;
             //GetComponent<Animator>().SetTrigger("Waiting");
             if (!hasChosenRandomTime)
@@ -89,7 +90,7 @@ public class Boss : MonoBehaviour
         }
         else
         {
-            invulnerable = true;
+            invulnerable = false;
             yerBekleme -= Time.deltaTime;
             if(yerBekleme <= 0)
             {
@@ -111,6 +112,10 @@ public class Boss : MonoBehaviour
     {
         if (invulnerable)
             return;
+        if (bossHealth <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
         bossHealth -= 20;
         healthSlider.value = bossHealth;
     }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,19 +21,23 @@ public class Player : MonoBehaviour
     public float nextInvincibilityTime = 0f;
     public float iFrameDuration;
     public int numberOfFlashes;
-    public SpriteRenderer spriteRend;
+    private SpriteRenderer spriteRend;
     public Animator anim;
-    public bool canDash = true;
-    public bool isDashing;
+    private bool canDash = true;
+    private bool isDashing;
+    public float dashingPower = 100f;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
-    public float dashSpeed;
+    public Vector2 idlePoint;
+
+    public Slider healthfill;
+    AudioSource audioSource;
 
 
-    
 
     [SerializeField] private TrailRenderer tr;
     public static Player instance;
+
 
 
     void Start()
@@ -40,14 +46,24 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
         instance = this;
+
+
+
+
+        healthfill.maxValue = maxHealth;
+        healthfill.value = health;
     }
     private void Awake()
     {
         
     }
-    
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
         float directionX = Input.GetAxisRaw("Horizontal");
         float directionY = Input.GetAxisRaw("Vertical");
         anim.SetFloat("Horizontal", directionX);
@@ -117,10 +133,11 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.SetBool("isAttacking", true);
+                //stopMovement();
                 
+                Attack();
                 nextAttackTime = Time.time + 1f / attackSpeed;                
                 StartCoroutine(Wait(0.1f));
-                Attack();
                 anim.SetFloat("Horizontal", 0);
                 anim.SetFloat("Vertical", 0);
                 
@@ -139,31 +156,38 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) && canDash)
         {
             StartCoroutine(Dash());
-            
-
         }
 
     }
-
+   /* private void stopMovement()
+    {
+        anim.SetBool("canMove", false);
+        float temp;
+        temp = movementSpeed;
+        movementSpeed = 0f;
+        StartCoroutine(Waitt(0.8f));
+        
+    }*/
     private IEnumerator Wait(float second)
     {
         yield return new WaitForSeconds(second);
         anim.SetBool("isAttacking", false);
+        //anim.SetBool("canMove", true);
     }
-    /*private IEnumerator Delay(float second)
+    private IEnumerator Waitt(float second)
     {
         yield return new WaitForSeconds(second);
-        
-    }*/
-
+        movementSpeed = 5f;
+    }
     private IEnumerator Dash()
     {
+        
         canDash = false;
         isDashing = true;
         tr.emitting = true;
         float temp;
         temp = movementSpeed;
-        movementSpeed = dashSpeed;
+        movementSpeed = 10f;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
         isDashing = false;
@@ -173,27 +197,22 @@ public class Player : MonoBehaviour
         
     }
 
-    
+
     private void Attack()
     {
         
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("Hit" + enemy.name);
             if (enemy.CompareTag("breakable"))
             {
-                enemy.GetComponent<Breakables>().Destroy();
                 
-
-
+                enemy.GetComponent<Breakables>().Destroy();
             }
             if (enemy.CompareTag("enemy"))
             {
-                //enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
-                
-                
+                enemy.gameObject.GetComponent<EnemyController>().DamageEnemy();
             }
             if (enemy.CompareTag("Boss"))
             {
@@ -208,17 +227,11 @@ public class Player : MonoBehaviour
     {
         if(health <= 0)
         {
-            anim.SetBool("isDead", true);
+            SceneManager.LoadScene(0);
             this.enabled = false;
         }
+        //animasyon gelecek
         
-       
-        
-    }
-    public void state()
-    {
-        anim.SetBool("isDead", false);
-        anim.SetBool("isDust", true);
     }
     private IEnumerator Invincibility()
     {
@@ -238,8 +251,9 @@ public class Player : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        
+
         health = health - damage;
+        healthfill.value = health;
         death();
         Debug.Log("Health: " + health);
     }
